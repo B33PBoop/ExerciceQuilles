@@ -787,6 +787,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "press b to open inventory",
+                    "type": "Button",
+                    "id": "76978493-e221-4a82-95c5-532b0bebc29c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -1161,6 +1170,17 @@
                     "processors": "",
                     "groups": "Generic XR Controller",
                     "action": "Pinch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4ac98bf3-0963-4cf9-bb28-6d4463a9fbea",
+                    "path": "<XRController>{RightHand}/primaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Generic XR Controller",
+                    "action": "press b to open inventory",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
