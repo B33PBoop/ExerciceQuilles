@@ -4,22 +4,55 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
-    private XRController controller = null;
+    [SerializeField] InputActionReference menuToggle;
+    private bool isToggled = true;
+    public GameObject canvas;
+    public GameObject socket;
+    public GameObject[] tabObjets;
 
     void Awake()
     {
-        controller = GetComponent<XRController>();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-        //Quand le bouton B (Secondary button, right controller) est enfoncé, faira apparaitre ou disparaitre
-        //Le menu d'objets
+       
+    }
 
+    private void OnEnable()
+    {
+        menuToggle.action.performed += ToggleMenu;
+    }
+
+
+    private void ToggleMenu(InputAction.CallbackContext obj){
+        
+        if(isToggled){
+            canvas.SetActive(false);
+            isToggled = false;
+            foreach(GameObject objet in tabObjets){
+                if(objet.transform.position == socket.transform.position)
+                objet.SetActive(false);
+            }
+        }
+
+        else{
+            canvas.SetActive(true);
+            isToggled = true;
+            foreach(GameObject objet in tabObjets){
+                objet.SetActive(true);
+            }
+        }
+
+    }
+
+    private void OnDisable(){
+        menuToggle.action.performed -= ToggleMenu;
     }
 }
