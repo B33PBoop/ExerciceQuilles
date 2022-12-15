@@ -7,30 +7,27 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class MenuItemRespawn : XRSocketInteractor
 {
-    // bool cdDone = true;
+    bool cdDone = true;
     
-    // // Update is called once per frame
-    // void Update()
-    // {
-        
-    // }
+    // Update is called once per frame
+    
+    protected override void OnSelectExiting(SelectExitEventArgs args)
+    {
+        base.OnSelectExiting(args);
+        XRSocketInteractor interactor = gameObject.GetComponent<MenuItemRespawn>();
+        StartCoroutine(RespawnObj(args.interactableObject, interactor));
+    }
 
 
 
-    // public void RespawnObjCD(){
-    //     if(cdDone)
-    //     {
-    //         cdDone = false;
-    //         Invoke("RespawnObj", 5f);
-    //     }
-    // }
 
+    public IEnumerator RespawnObj(IXRSelectInteractable obj, XRSocketInteractor interactor)
+    {
 
-    // public void RespawnObj(){
-        
-    //     Transform socketTransform =  XRSocketInteractor.attachTransform;
-    //     GameObject cloneObj = gameObject.GetComponent<XRSocketInteractor>().selectTarget.gameObject;
-    //     Instantiate(cloneObj, socketTransform.);
-    //     cdDone = true;
-    // }
+            GameObject cloneObj = obj.transform.gameObject;
+            GameObject refClone = Instantiate(cloneObj, interactor.attachTransform.position,interactor.attachTransform.rotation);
+            refClone.GetComponent<Rigidbody>().isKinematic = false;
+            refClone.GetComponent<Rigidbody>().useGravity = true;
+            yield return null;
+    }
 }
